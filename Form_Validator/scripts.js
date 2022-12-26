@@ -27,30 +27,49 @@ function checkEmail(email) {
 	return re.test(String(email).toLowerCase())
 }
 
+// getFieldName -- make first letter uppper case
+function getFieldName(input) {
+	return input.id.charAt(0).toUpperCase() + input.id.slice(1)
+}
+
+// Check Required fields
+function checkRequired(inputArray) {
+	inputArray.forEach(function (input) {
+		if (input.value.trim() === "") {
+			showError(input, `${getFieldName(input)} required`)
+		} else {
+			showSuccess(input)
+		}
+	})
+}
+
 //Event Listener
 form.addEventListener("submit", function (e) {
 	e.preventDefault()
 
-	if (username.value === "") {
-		showError(username, "Username is required")
-	} else {
-		showSuccess(username)
-	}
-	if (email.value === "") {
-		showError(email, "Email is required")
-	} else if (!checkEmail(email.value)) {
-		showError(email, "Email is not valid")
-	} else {
-		showSuccess(email)
-	}
-	if (password.value === "") {
-		showError(password, "password is required")
-	} else {
-		showSuccess(password)
-	}
-	if (password2.value === "") {
-		showError(password2, "passwordb 2 is required")
-	} else {
-		showSuccess(password2)
-	}
+	checkRequired([username, email, password, password2])
 })
+
+// Old Way
+// if (username.value === "") {
+// 	showError(username, "Username is required")
+// } else {
+// 	showSuccess(username)
+// }
+// if (email.value === "") {
+// 	showError(email, "Email is required")
+// } else if (!checkEmail(email.value)) {
+// 	showError(email, "Email is not valid")
+// } else {
+// 	showSuccess(email)
+// }
+// if (password.value === "") {
+// 	showError(password, "password is required")
+// } else {
+// 	showSuccess(password)
+// }
+// if (password2.value === "") {
+// 	showError(password2, "passwordb 2 is required")
+// } else {
+// 	showSuccess(password2)
+// }
